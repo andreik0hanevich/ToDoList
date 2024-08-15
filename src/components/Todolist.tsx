@@ -1,40 +1,44 @@
-import React from 'react'
+import React from "react";
+import Task from "./Task";
+import Button from "./Button";
 
 type PropsType = {
-    title: string
-    tasks: TasksType[]
-}
+  title: string;
+  tasks: TasksType[];
+};
 
-type TasksType = {
-    id: number
-    title: string
-    isDone: boolean
-}
-
+export type TasksType = {
+  id: number;
+  title: string;
+  isDone: boolean;
+};
 
 const Todolist = (props: PropsType) => {
+  const { title, tasks } = props;
 
-    const {title, tasks} = props
+  const mappedTasks = tasks.length ? (
+    tasks.map((el, index) => {
+      return <Task key={el.id} {...el} />;
+    })
+  ) : (
+    <div>No Data</div>
+  );
 
   return (
-            <div>
-                <h3>{title}</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li><input type="checkbox" checked={tasks[0].isDone}/> <span>{tasks[0].title}</span></li>
-                    <li><input type="checkbox" checked={tasks[1].isDone}/> <span>{tasks[1].title}</span></li>
-                    <li><input type="checkbox" checked={tasks[2].isDone}/> <span>{tasks[2].title}</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
-  )
-}
+    <div>
+      <h3>{title}</h3>
+      <div>
+        <input />
+        <button>+</button>
+      </div>
+      <ul>{mappedTasks}</ul>
+      <div>
+        <Button title="All"/>
+        <Button title="Active"/>
+        <Button title="Completed"/>
+      </div>
+    </div>
+  );
+};
 
-export default Todolist
+export default Todolist;
